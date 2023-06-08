@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState ,useEffect} from "react";
 
 function App() {
   const [task, setTask] = useState("");
@@ -17,7 +17,7 @@ function App() {
     if (task.trim() !== "" && date.trim() !== "") {
       const newTask = { task, date, reminder:false};
       const currentDate = new Date().toISOString()
-      if(date>=currentDate){
+      if(date>=currentDate ){
       setTodos((todos) => [...todos, newTask]);
       setTask("");
       setDate("");
@@ -40,9 +40,15 @@ function App() {
     setTodos(updatedList);
     console.log(updatedList);
   };
-  // useEffect(()=>{
-  //   console.log(todos)
-  // },[todos])
+  useEffect(()=>{
+    const currentDate = new Date().toISOString()
+    todos.forEach((item)=>{
+      if (item.reminder&& item.date===currentDate){
+        window.alert(`Reminder for task: ${item.task}`)
+      }
+    })
+  },[todos])
+
 
   return (
     <div className="App">
