@@ -48,7 +48,12 @@ function App() {
       }
     })
   },[todos])
+// store todos in local storage
 
+  useEffect(()=>{
+    localStorage.setItem("todos", JSON.stringify(todos));
+    
+  },[todos])
 
   return (
     <div className="App">
