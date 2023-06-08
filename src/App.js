@@ -15,7 +15,7 @@ function App() {
 
   const handleAddTask = () => {
     if (task.trim() !== "" && date.trim() !== "") {
-      const newTask = { task, date };
+      const newTask = { task, date, reminder:false};
       const currentDate = new Date().toISOString()
       if(date>=currentDate){
       setTodos((todos) => [...todos, newTask]);
@@ -27,6 +27,12 @@ function App() {
       }
     }
   };
+  const HandleReminder = (index) =>{
+    const updatedList = todos.map((todo,i) =>{
+      return i === index ? {...todo,reminder:!todo.reminder}:todo
+    })
+    setTodos(updatedList)
+  }
   const HandleDeleteTask = (index) => {
     const updatedList = todos.filter((item, i) => {
       return i !== index;
@@ -48,6 +54,9 @@ function App() {
         {todos.map((item, index) => (
           <li key={index}>
             {item.task} {item.date}
+            <button onClick={() => HandleReminder(index)}>
+              {item.reminder ? "Disable Reminder" : "Set Reminder"}
+            </button>
             <button onClick={() => HandleDeleteTask(index)}>Delete</button>
           </li>
         ))}
