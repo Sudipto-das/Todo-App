@@ -3,7 +3,10 @@ import { useState ,useEffect} from "react";
 function App() {
   const [task, setTask] = useState("");
   const [date, setDate] = useState("");
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(() => {
+    const storedTodos = JSON.parse(localStorage.getItem("todos"));
+    return storedTodos || [];
+  });
 
   const HandleInputTask = (event) => {
     setTask(event.target.value);
@@ -48,6 +51,13 @@ function App() {
       }
     })
   },[todos])
+
+  // useEffect(() => {
+  //   const storedTodos = JSON.parse(localStorage.getItem("todos"));
+  //   if (storedTodos) {
+  //     setTodos(storedTodos);
+  //   }
+  // }, []);
 // store todos in local storage
 
   useEffect(()=>{
