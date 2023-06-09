@@ -1,4 +1,5 @@
 ToDo Application
+
 This ToDo application is a simple and efficient task management tool built using React. It allows users to add tasks, set reminders, and delete completed tasks, providing an organized approach to staying on top of daily responsibilities.
 
 Features
@@ -11,12 +12,8 @@ React: The application is developed using React, a popular JavaScript library fo
 useState: React's useState hook is employed for managing state within functional components.
 useEffect: The useEffect hook is used to handle reminders and update local storage.
 CSS: Custom CSS styles are applied for a visually appealing and responsive user interface.
-Usage
-Clone the repository: git clone https://github.com/your-username/todo-application.git
-Navigate to the project directory: cd todo-application
-Install dependencies: npm install
-Start the development server: npm start
-Access the application in your browser at: http://localhost:3000
+
+
 Future Enhancements
 User authentication: Implement user authentication to allow multiple users to have separate task lists.
 Task prioritization: Add the ability to prioritize tasks based on urgency or importance.
