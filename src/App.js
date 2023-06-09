@@ -1,12 +1,18 @@
-import { useState ,useEffect} from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   const [task, setTask] = useState("");
-  const [date, setDate] = useState("");
+
   const [todos, setTodos] = useState(() => {
     const storedTodos = JSON.parse(localStorage.getItem("todos"));
     return storedTodos || [];
   });
+
+  const getCurrentDate = () => {
+    const currentDate = new Date().toISOString().slice(0, 10);
+    return currentDate;
+  };
+  const [date, setDate] = useState(getCurrentDate());
 
   const HandleInputTask = (event) => {
     setTask(event.target.value);
@@ -18,24 +24,23 @@ function App() {
 
   const handleAddTask = () => {
     if (task.trim() !== "" && date.trim() !== "") {
-      const newTask = { task, date, reminder:false};
-      const currentDate = new Date().toISOString()
-      if(date>=currentDate ){
-      setTodos((todos) => [...todos, newTask]);
-      setTask("");
-      setDate("");
-      }
-      else{
-        alert('pls select valid date')
+      const newTask = { task, date, reminder: false };
+      const currentDate = new Date().toISOString().slice(0, 10);
+      if (date >= currentDate) {
+        setTodos((todos) => [...todos, newTask]);
+        setTask("");
+        setDate(getCurrentDate());
+      } else {
+        alert("pls select valid date");
       }
     }
   };
-  const HandleReminder = (index) =>{
-    const updatedList = todos.map((todo,i) =>{
-      return i === index ? {...todo,reminder:!todo.reminder}:todo
-    })
-    setTodos(updatedList)
-  }
+  const HandleReminder = (index) => {
+    const updatedList = todos.map((todo, i) => {
+      return i === index ? { ...todo, reminder: !todo.reminder } : todo;
+    });
+    setTodos(updatedList);
+  };
   const HandleDeleteTask = (index) => {
     const updatedList = todos.filter((item, i) => {
       return i !== index;
@@ -43,14 +48,14 @@ function App() {
     setTodos(updatedList);
     console.log(updatedList);
   };
-  useEffect(()=>{
-    const currentDate = new Date().toISOString()
-    todos.forEach((item)=>{
-      if (item.reminder&& item.date===currentDate){
-        window.alert(`Reminder for task: ${item.task}`)
+  useEffect(() => {
+    const currentDate = new Date().toISOString().slice(0, 10);
+    todos.forEach((item) => {
+      if (item.reminder && item.date === currentDate) {
+        window.alert(`Reminder for task: ${item.task}`);
       }
-    })
-  },[todos])
+    });
+  }, [todos]);
 
   // useEffect(() => {
   //   const storedTodos = JSON.parse(localStorage.getItem("todos"));
@@ -58,12 +63,11 @@ function App() {
   //     setTodos(storedTodos);
   //   }
   // }, []);
-// store todos in local storage
+  // store todos in local storage
 
-  useEffect(()=>{
+  useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
-    
-  },[todos])
+  }, [todos]);
 
   return (
     <div className="App">
